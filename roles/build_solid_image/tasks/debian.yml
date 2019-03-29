@@ -2,7 +2,7 @@
   - name: "Build solid server image"
     docker_image:
       name: "node_solid_server"
-      path: "/home/georgemanakanatas/Solid/SolidAnsible/test"
+      path: "{{ solid_folder_path_debian }}"
       state: present
     become: true
     become_method: sudo

@@ -1,7 +1,7 @@
 ---
   - name: "Check if Solid folder exists"
     stat:
-      path: /home/georgemanakanatas/Solid/SolidAnsible/test
+      path: "{{ solid_folder_path_debian }}"
     register: solid_server_code
     tags: ["solid","get_solid"]
   
