@@ -1,0 +1,18 @@
+---
+  - name: "Create Solid folder"
+    file:
+      path: "{{ solid_folder_path_redhat }}"
+      state: directory
+      mode: 0775
+      recurse: yes
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "Pull solid from git"
+    git:
+      repo: "{{ solid_server_url }}"
+      dest: "{{ solid_folder_path_redhat }}"
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]

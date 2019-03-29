@@ -1,0 +1,9 @@
+---
+  - name: "Build solid server image"
+    docker_image:
+      name: "node_solid_server"
+      path: "/home/georgemanakanatas/Solid/SolidAnsible/test"
+      state: present
+    become: true
+    become_method: sudo
+    tags: ["solid","solid_image"]
