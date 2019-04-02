@@ -100,7 +100,7 @@ At this time there are no tests. Future plans are to use Travis CI to test the r
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository [here](https://github.com/your/project/tags).
 
 ## Authors
 
