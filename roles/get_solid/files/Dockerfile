@@ -1,6 +1,9 @@
-FROM node:8.11.2-onbuild
+FROM node:10-alpine
+RUN apk add --no-cache openssl
 EXPOSE 8443
+COPY . .
 COPY config.json-default config.json
+RUN npm install
 RUN openssl req \
     -new \
     -newkey rsa:4096 \

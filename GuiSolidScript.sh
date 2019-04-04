@@ -53,7 +53,8 @@ stop_container(){
 # build image
 build_solid_server_image(){
   ansible-playbook -K MainPlaybook.yml --tags "get_solid"
-  ansible-playbook -K MainPlaybook.yml --tags "solid_image"
+  sudo docker build -t node_solid_server ./roles/get_solid/files/
+  #ansible-playbook -K MainPlaybook.yml --tags "solid_image"
 }
 # create container
 
