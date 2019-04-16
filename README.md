@@ -4,10 +4,10 @@ Bash and Ansible combination that installs all the software needed to create doc
 
 ## Goal
 
-The goal is to automate the above process and make it user friendly. This ansible playbook when run should: 
-* Update the machine 
-* Install 
-  * node 
+The goal is to automate the above process and make it user friendly. This ansible playbook when run should:
+* Update the machine
+* Install
+  * node
   * python
   * docker
 * Clone the Solid server repository
@@ -19,29 +19,31 @@ The goal is to automate the above process and make it user friendly. This ansibl
 
 ```
 
-./
+.
 ├── GuiSolidScript.sh
 ├── LICENSE
+├── MainPlaybook.retry
 ├── MainPlaybook.yml
+├── package-lock.json
 ├── README.md
 ├── roles
+│   ├── ansible-role-docker
+│   ├── ansible-role-nodejs
 │   ├── build_solid_image
-│   ├── docker
 │   ├── general
 │   ├── get_solid
-│   ├── nodejs
 │   ├── python
 │   └── README.md
 └── start.sh
 
-7 directories, 6 files
+7 directories, 8 files
 
 ```
 
 ### Prerequisites
 
 For the time being it only works on Ubuntu and Ubuntu server.
-You must have sudo privileges in the host machine. 
+You must have sudo privileges in the host machine.
 
 Centos / RHEL / Fedora compatibility for this playbook is a goal but as of now is present in only some of the roles.
 
@@ -51,7 +53,7 @@ If the machine has git then get the repository with the following command:
 ```
 git clone https://github.com/GeorgeManakanatas/Solid_Docker_Automation.git
 ```
-Otherwise download a zip from github and unpack it in a Directory of your choosing. 
+Otherwise download a zip from github and unpack it in a Directory of your choosing.
 
 ### Installing
 
@@ -92,7 +94,7 @@ Once the contaier is built and started open a browser and ingoring the https://l
 For future use there is no need to run the playbook again and the GUI can be accessed directly by running the GUI script
 ```
 ./GuiSolidScript.sh
-``` 
+```
 
 ## Running the tests
 
@@ -114,4 +116,4 @@ See the [LICENSE](LICENSE) file for details.
 
 * **Billie Thompson** - *Initial work on the great readme template used as the basis for this.* - [PurpleBooth](https://github.com/PurpleBooth)
 * **Team Solid** - *To the present team at Solid as well as it's alumni for being awsome* - [Solid](https://solid.mit.edu/)
-
+* **Jeff Geerling** - *For his great ansible playbooks for node and docker that I am using* - [geerlingguy](https://github.com/geerlingguy)
