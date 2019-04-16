@@ -4,6 +4,12 @@
       name: python-pip
       update_cache: yes
       state: present
-    become: true
-    become_method: sudo
     tags: ["python","prerequisites"]
+
+  - name: Install python modules for Docker
+    pip: 
+      name:
+        - docker
+        - requests
+      state: present
+    tags: ["docker","prerequisites"]

@@ -1,5 +1,5 @@
-[submodule "roles/roles/ansible-role-nodejs"]
-	path = roles/roles/ansible-role-nodejs
+[submodule "roles/ansible-role-nodejs"]
+	path = roles/ansible-role-nodejs
 	url = https://github.com/geerlingguy/ansible-role-nodejs.git
 [submodule "roles/ansible-role-docker"]
 	path = roles/ansible-role-docker

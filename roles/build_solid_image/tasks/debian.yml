@@ -1,9 +1,15 @@
 ---
   - name: "Build solid server image"
-    docker_image:
-      name: "node_solid_server"
-      path: "{{ solid_folder_path_debian }}"
-      state: present
+    command: docker build -t node_solid_server ./roles/get_solid/files/
     become: true
     become_method: sudo
     tags: ["solid","solid_image"]
+    
+#  - name: "Build solid server image"
+#    docker_image:
+#      name: "node_solid_server"
+#      path: "{{ solid_folder_path_debian }}"
+#      state: present
+#    become: true
+#    become_method: sudo
+#    tags: ["solid","solid_image"]

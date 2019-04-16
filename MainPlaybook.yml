@@ -10,8 +10,8 @@
     become_method: sudo
     roles:
       - role: ansible-role-nodejs
-      - role: python
       - role: ansible-role-docker
+      - role: python
 
   - hosts: 127.0.0.1
     connection: local
