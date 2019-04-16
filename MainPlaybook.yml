@@ -6,8 +6,10 @@
 
   - hosts: 127.0.0.1
     connection: local
+    become: true
+    become_method: sudo
     roles:
-      - role: nodejs
+      - role: ansible-role-nodejs
       - role: python
       - role: ansible-role-docker
 
