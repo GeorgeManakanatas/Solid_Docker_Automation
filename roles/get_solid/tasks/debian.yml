@@ -4,7 +4,7 @@
       path: "{{ solid_folder_path_debian }}"
     register: solid_server_code
     tags: ["solid","get_solid"]
-  
+
   - name: "Create Solid folder"
     file:
       path: "{{ solid_folder_path_debian }}"
@@ -24,7 +24,7 @@
     become: true
     become_method: sudo
     tags: ["solid","get_solid"]
-    
+
   - name: "Replace config.json-default file"
     copy:
       src: config.json-default
@@ -34,7 +34,7 @@
     become: true
     become_method: sudo
     tags: ["solid","get_solid"]
- 
+
   - name: "replace Dockerfile"
     copy:
       src: Dockerfile
