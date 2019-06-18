@@ -1,4 +1,6 @@
 ---
-  solid_folder_path_debian: "/home/georgemanakanatas/Documents/Solid_Docker_Automation/test"
-  solid_folder_path_redhat: "/home/george.manakanatas/Documents/Solid_Docker_Automation/test"
-  solid_server_url: "https://github.com/solid/node-solid-server.git"
+  solid_folder_path: "/test"
+  solid_git_url: "https://github.com/solid/node-solid-server.git"
+  run_local_server: "true"
+  self_signed_key: "selfSignedKey.pem"
+  self_signed_cert: "selfSignedCert.pem"

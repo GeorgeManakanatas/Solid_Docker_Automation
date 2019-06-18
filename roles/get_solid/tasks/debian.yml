@@ -1,15 +1,24 @@
 ---
   - name: "Check if Solid folder exists"
     stat:
-      path: "{{ solid_folder_path_debian }}"
+      path: "{{ playbook_dir }}{{ solid_folder_path }}"
     register: solid_server_code
     tags: ["solid","get_solid"]
-  
+
+  - name: "change permissions of folders in server"
+    file:
+      path: "{{ playbook_dir }}"
+      recurse: yes
+      mode: 0777
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
   - name: "Create Solid folder"
     file:
-      path: "{{ solid_folder_path_debian }}"
+      path: "{{ playbook_dir }}{{ solid_folder_path }}"
       state: directory
-      mode: 0775
+      mode: 0777
       recurse: yes
     when: solid_server_code.stat.exists == False
     become: true
@@ -18,29 +27,96 @@
 
   - name: "Pull solid from git"
     git:
-      repo: "{{ solid_server_url }}"
-      dest: "{{ solid_folder_path_debian }}"
+      repo: "{{ solid_git_url }}"
+      dest: "{{ playbook_dir }}{{ solid_folder_path }}"
     when: solid_server_code.stat.exists == False
     become: true
     become_method: sudo
     tags: ["solid","get_solid"]
-    
-  - name: "Replace config.json-default file"
+
+  - name: "Replace config.json file"
     copy:
-      src: config.json-default
-      dest: "{{ solid_folder_path_debian }}"
+      src: config.json
+      dest: "{{ playbook_dir }}{{ solid_folder_path }}"
       owner: root
       group: root
     become: true
     become_method: sudo
     tags: ["solid","get_solid"]
- 
+
   - name: "replace Dockerfile"
     copy:
       src: Dockerfile
-      dest: "{{ solid_folder_path_debian }}"
+      dest: "{{ playbook_dir }}{{ solid_folder_path }}"
       owner: root
       group: root
     become: true
     become_method: sudo
     tags: ["solid","get_solid"]
+
+  - name: "generate self signed key and certificate"
+    command: "{{ playbook_dir }}/roles/get_solid/files/create_temp_cert.sh"
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "change permissions of files and folders in server"
+    file:
+      path: "{{ playbook_dir }}"
+      recurse: yes
+      mode: 0777
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "copy the self signed key to {{ solid_folder_path }} folder"
+    copy:
+      src: "{{ self_signed_key }}"
+      dest: "{{ playbook_dir }}{{ solid_folder_path }}/{{ self_signed_key }}"
+      owner: root
+      group: root
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "copy the self signed cert to {{ solid_folder_path }} folder"
+    copy:
+      src: "{{ self_signed_cert }}"
+      dest: "{{ playbook_dir }}{{ solid_folder_path }}/{{ self_signed_cert }}"
+      owner: root
+      group: root
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "delete original key"
+    file:
+      path: "{{ playbook_dir }}/{{ self_signed_key }}"
+      state: absent
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "delete original cert"
+    file:
+      path: "{{ playbook_dir }}/{{ self_signed_cert }}"
+      state: absent
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  - name: "run npm install for server folder"
+    command: "npm install"
+    args:
+      chdir: "{{ playbook_dir }}{{ solid_folder_path }}"
+    become: true
+    become_method: sudo
+    tags: ["solid","get_solid"]
+
+  # - name: "run server"
+  #   command: "solid-test start"
+  #   args: "{{ playbook_dir }}{{ solid_folder_path }}/bin/"
+  #   when: "{{ run_local_server }}"
+  #   become: true
+  #   become_method: sudo
+  #   tags: ["solid","get_solid"]

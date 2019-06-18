@@ -2,7 +2,7 @@
   - name: "Build solid server image"
     docker_image:
       name: "node_solid_server"
-      path: "{{ solid_folder_path_debian }}"
+      path: "{{ playbook_dir }}{{ solid_folder_path }}"
       state: present
     become: true
     become_method: sudo
